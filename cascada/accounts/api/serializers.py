@@ -5,7 +5,7 @@ class ResgistrationSerializer(serializers.ModelSerializer):
     #add password2 that is not in the account model
     password2           = serializers.CharField(style={'input_type': 'password'}, write_only = True)
     class Meta:
-        model           = Account
+       # model           = Account
         fields          =['email', 'username', 'password', 'password2']
         #for security to hide what is being written
         extra_kwargs    = {'password': {'write_only': True}}
