@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #install rest framework
     'rest_framework',
-    #install the api app 
-    'api.apps.ApiConfig',
+    #install the accounts app 
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
