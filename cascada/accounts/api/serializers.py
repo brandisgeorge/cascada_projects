@@ -24,15 +24,12 @@ class ResgistrationSerializer(serializers.ModelSerializer):
         account.set_password(password)
         account.save()
         return account
-    
-class LoginSerializer(serializers.ModelSerializer):
+       
+       
+class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ['email', 'password']
+        fields = ['pk', 'email', 'username']
         
-        extra_kwags = {'password': {'write_only': True}}
-        
-    def validate(self, data):
-        password = data.get('password')
-        email = data.get('email')
-       
+#class changepasswordSerializer(serializers.Serializer):
+#old,new,confrimnew, = serialziers.CharField(required=True)
