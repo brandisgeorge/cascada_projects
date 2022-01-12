@@ -10,7 +10,7 @@ def registration_view(request):
         data = {}
         if serializer.is_valid():
             account = serializer.save()
-            data['response']    = "New user sucessfully created."
+            data['response']    = "Account sucessfully created."
             data['email']       = account.email
             data['username']    = account.username
         else:

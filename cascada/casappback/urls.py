@@ -18,8 +18,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #takes us to the api app
-    path('api/',include('api.urls')),
-    path('users/', include('django.contrib.auth.urls')),
-    path('users/', include('users.urls')),
+    path('accounts/', accounts_view, name="accounts"),
+    
+    
+    #REST FRAMEWORK URLS
+    path('api/accounts/', include('account.api.urls', 'account_api')),
 ]
