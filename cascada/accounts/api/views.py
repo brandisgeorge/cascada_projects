@@ -37,7 +37,7 @@ def registration_view(request):
             data['email']       = account.email
             data['username']    = account.username
             data['pk']          = account.pk
-            token               = Token.objects,get(user=account).key
+            token               = Token.objects.get(user=account).key
             data['token']       = token
         else:
             data = serializer.errors

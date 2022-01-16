@@ -39,10 +39,32 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #install rest framework
     'rest_framework',
+    #install token authentication
+    'rest_framework.authtoken',
     #install the accounts app 
     'accounts.apps.AccountsConfig',
 ]
 
+#authentication model
+AUTH_USER_MODEL = 'account.Accounts'
+#authenication backends
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.AllowAllUsersModelBackend',
+    'account.backends.CaseInsensitiveModelBackend',
+)
+
+#restframework authentication needed
+REST_FRAMEWORK =  {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    # may need 
+    #'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    #'PAGE_SIZE': 10,
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
