@@ -65,3 +65,58 @@ def validate_username(username):
     
     
 #user login
+class ObtainTokenAuthView(APIView):
+    
+    authentication_classes = []
+    permission_classes = []
+    
+    def post(self, request):
+        context = {}
+        email       = request.POST.get('username')
+        password    = request.POST.get('password')
+        account     = authenticate(email=email, password=password)
+        if account:
+            try:
+                token = Token.objects.get(user=account)
+            except Token.DoesNotExist:
+                token = Token.objects.create(user=account)
+            context['response']         = 'Authenticated'
+            context['pk']               = account.pk
+            context['email']            = email.lower()
+            context['token']            = token.key
+        else:
+            context['response']         = 'Error'
+            context['error_message']    = 'Invalid Credentials'
+                
+        return Response(context)
+    
+# check account exist
+@api_view(['GET', ])
+@permission_classes([])
+@authentication_classes([])
+def doesAccountExist_view(request):
+    if request.method == 'GET':
+        email = request.GET['email'].lower()
+        data = {}
+        try:
+            account             = Account.objects.get(email=email)
+            data['response']    = email
+        except Account.DoesNotExist:
+            data['response']    = 'Accont does not exist'
+        return Response(data)
+    
+#account details
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated, ))
+def accountDetails_view(request):
+    try:
+        account     = request.user
+    except Account.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method =='GET':
+        serializer = AccountSerializer(account)
+        return Response(serializer.data)
+    
+    
+#maybe add a change password view
