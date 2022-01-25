@@ -15,12 +15,28 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
+from django.conf import settings
+from accounts.views import (
+    register_view,
+    login_view,
+    logout_view,
+    must_authenticate_view,
+)
 
 urlpatterns = [
+    path('',home_view, name="home"),
     path('admin/', admin.site.urls),
-    path('accounts/', accounts_view, name="accounts"),
+    path('login/', login_view, name="login"),
+    path('logout/', logout_view, name="logout"),
+    path('register/', register_view, name="register"),
+    path('must_authenticate/', must_authenticate_view, name="must_authenticate" ),
     
     
     #REST FRAMEWORK URLS
     path('api/accounts/', include('account.api.urls', 'account_api')),
+    
+    #password reset links
 ]
+#may have to add settings.DEBUG
