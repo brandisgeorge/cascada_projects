@@ -34,7 +34,10 @@ export function LoginScreen(){
           />
 
         <TouchableOpacity style={styles.button}>
-            <Text style={{fontSize: 24, color: "#D1F892", fontFamily: 'PlayfairDisplay_400Regular',}}>LOGIN</Text>
+            <Text style={{fontSize: 24, color: "#D1F892", 
+            fontFamily: 'PlayfairDisplay_400Regular'}}
+            onPress={() => navigation.navigate('Home')}>LOGIN</Text>
+
         </TouchableOpacity>
 
         <TouchableOpacity>
@@ -42,7 +45,7 @@ export function LoginScreen(){
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Signup')}>
-            <Text style={{fontSize: 18, fontWeight: 700, color: '#275161', fontFamily: 'PlayfairDisplay_400Regular',}}>Create an Account</Text>
+            <Text style={{fontSize: 18, fontWeight: "700", color: '#275161', fontFamily: 'PlayfairDisplay_400Regular',}}>Create an Account</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>

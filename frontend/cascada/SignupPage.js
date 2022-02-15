@@ -30,7 +30,7 @@ export function SignupPage(){
 
         <TextInput
           style={styles.TextInput}
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(username) => setUsername(username)}
           placeholder='Username'
         />
         
@@ -42,11 +42,13 @@ export function SignupPage(){
           />
 
         <TouchableOpacity style={styles.button}>
-            <Text style={{fontSize: 24, color: "#D1F892", fontFamily: 'PlayfairDisplay_400Regular',}}>Get Started</Text>
+            <Text style={{fontSize: 24, color: "#D1F892", fontFamily: 'PlayfairDisplay_400Regular',}}
+            onPress={() => navigation.navigate('Home')}
+            >Get Started</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Login')}>
-            <Text style={{fontSize: 18, fontWeight: 700, color: '#275161', fontFamily: 'PlayfairDisplay_400Regular',}}>Already Have An Account</Text>
+            <Text style={{fontSize: 18, fontWeight: "700", color: '#275161', fontFamily: 'PlayfairDisplay_400Regular',}}>Already Have An Account</Text>
         </TouchableOpacity>
       </View>
 
