@@ -1,22 +1,82 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, ImageBackground, Image, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, ImageBackground, Image, TextInput, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
+import PropTypes from 'prop-types';
+
 
 
 export function HomePage(){
     const navigation = useNavigation();
     return(
-        <View style={styles.container}>
-            
+        <SafeAreaView style={styles.container}>
+        <View style={styles.topcontainer}>
+          <Text>Hello, </Text>
+          <Text>Brandis!</Text>
         </View>
-
+        <Text>Check your moisture level for plants</Text>
+        <View style={styles.notificationcontainer}>
+          <TouchableOpacity style={styles.button}></TouchableOpacity>
+          <View style={{flexDirection: "column"}}>
+            <Text>Area 2</Text>
+            <Text>Area 2 has finished watering</Text>
+          </View>
+        </View>
+          <ScrollView style={styles.sidescroll} horizontal={true}>
+            <AreaWidget>
+            </AreaWidget>
+            <AreaWidget>
+            </AreaWidget>
+            <AreaWidget>
+            </AreaWidget>
+          </ScrollView>
+        </SafeAreaView>
     );
+}
+
+class AreaWidget extends React.Component {
+  render() {
+    return (
+      <View>
+        <TouchableOpacity style={styles.areaWidget}>
+
+        </TouchableOpacity>
+      </View>
+    );
+  }
 }
 
 export const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#5EA671',
+        backgroundColor: `#CCFFE5`,
+        flex: 1,
         
+    },
+    topcontainer:{
+      marginHorizontal: 40,
+      flex: .2,
+      marginTop: 10,
+      flexDirection: "row",
+
+    },
+    notificationcontainer:{
+      flex: .5,
+      marginHorizontal: 40,
+      flexDirection: "row",
+    },
+
+    sidescroll: {
+      flex: .75,
+      flexGrow: 1,
+    },
+    areaWidget: {      
+      height: 305,
+      width: 202,
+      margin: 12,
+      borderRadius: 18,
+      backgroundColor: '#5EA671',
+      alignItems: "center",
+      justifyContent: "center",
+
     },
     
     iconImage: {
@@ -59,10 +119,10 @@ export const styles = StyleSheet.create({
     },
   
     button: {
-        height: 74,
-        width: 342,
+        height: 70,
+        width: 70,
         margin: 12,
-        borderRadius: 14,
+        borderRadius: 30,
         backgroundColor: '#275161',
         alignItems: "center",
         justifyContent: "center",
