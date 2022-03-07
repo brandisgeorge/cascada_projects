@@ -1,12 +1,46 @@
 import { StyleSheet, Text, View, Button, ImageBackground, Image, TextInput, TouchableOpacity } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 
 export function SignupPage(){
     const navigation = useNavigation();
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [password2, setPassword2] = useState('');
+
+  
+    
+
+  let onSubmit = () => {
+    const user = {
+      email: email,
+      username: username,
+      password: password,
+      password2: password2
+    };
+     console.log(user)
+      fetch('http://127.0.0.1:8000/api/accounts/register',{
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.token) {
+          console.log('did work data is', data)
+          localStorage.clear();
+          localStorage.setItem('token', data.token);
+          navigation.navigate('Home');
+        } else {
+          console.log("didnt work data is", data)
+          localStorage.clear();
+        }
+      });
+    };
+
     return(
         <ImageBackground source={require('./assets/background.png')} 
             resizeMode='cover'
@@ -24,26 +58,34 @@ export function SignupPage(){
         
         <TextInput
           style={styles.TextInput}
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={ (email) => setEmail(email)}
           placeholder='Email'
         />
 
         <TextInput
           style={styles.TextInput}
-          onChangeText={(username) => setUsername(username)}
+          onChangeText={ (username) => setUsername(username)}
           placeholder='Username'
         />
         
         <TextInput
           style={styles.TextInput}
           secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
+          value = {password}
+          onChangeText={ (password) => setPassword(password)}
           placeholder='Password'
+          />
+
+        <TextInput
+          style={styles.TextInput}
+          secureTextEntry={true}
+          onChangeText={ (password2) => setPassword2(password2)}
+          placeholder='retype Password'
           />
 
         <TouchableOpacity style={styles.button}>
             <Text style={{fontSize: 24, color: "#D1F892", fontFamily: 'PlayfairDisplay_400Regular',}}
-            onPress={() => navigation.navigate('Home')}
+            onPress={onSubmit}
             >Get Started</Text>
         </TouchableOpacity>
 

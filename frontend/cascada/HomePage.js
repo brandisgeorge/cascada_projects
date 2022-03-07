@@ -1,19 +1,53 @@
-import React from "react";
-import { StyleSheet, Text, View, Button, ImageBackground, Image, TextInput, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import React, {useState, useEffect} from "react";
+import { StyleSheet, Switch, Text, View, Button, ImageBackground, Image, TextInput, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import PropTypes from 'prop-types';
 
 
 
 export function HomePage(){
-    const navigation = useNavigation();
+  const navigation = useNavigation();
+  const [isEnabled, setIsEnabled] = useState(false);
+  const [username, setUsername] = useState('')
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (localStorage.getItem('token') === null) {
+      navigation.navigate('Login');
+    } else {
+      fetch('http://127.0.0.1:8000/api/accounts/details', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Token ${localStorage.getItem('token')}`
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          setUsername(data.username);
+          setLoading(false);
+        });
+    }
+  }, []);
+
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     return(
         <SafeAreaView style={styles.container}>
         <View style={styles.topcontainer}>
           <Text>Hello, </Text>
-          <Text>Brandis!</Text>
+          <Text>{username}</Text>
         </View>
+        <View style={{marginHorizontal: 40,}}>
+          <Switch
+        trackColor={"#D1F892"}
+        thumbColor={"#D1F892"}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={isEnabled}
+      />
         <Text>Check your moisture level for plants</Text>
+        </View>
+        
         <View style={styles.notificationcontainer}>
           <TouchableOpacity style={styles.button}></TouchableOpacity>
           <View style={{flexDirection: "column"}}>

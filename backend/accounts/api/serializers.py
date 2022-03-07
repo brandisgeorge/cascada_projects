@@ -22,7 +22,7 @@ class registrationSerializer(serializers.ModelSerializer):
     
 class accountSerializer(serializers.ModelSerializer):
     class Meta:
-        mdoel = Accounts
+        model = Accounts
         fields = ['pk', 'email', 'username',]
         
 class changePasswordSerializer(serializers.Serializer):

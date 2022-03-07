@@ -18,11 +18,11 @@ from django.urls import path,include
 from django.contrib.auth import views as auth_views 
 
 from accounts.views import (login_view, logout_view, register_view,)
-from modules.views import (plantModuleView)
+from modules.views import (createPlantModuleView)
 
 urlpatterns = [
     #home page
-    path('', plantModuleView, name="plant"),
+    path('', createPlantModuleView, name="plant"),
     #admin page
     path('admin/', admin.site.urls),
     #account pages
@@ -31,5 +31,5 @@ urlpatterns = [
     path('register/', register_view, name="register"),
     
     #api rest framework
-    path('api/account/',include('accounts.api.urls', 'accounts_api')),
+    path('api/accounts/',include('accounts.api.urls', 'accounts_api')),
 ]

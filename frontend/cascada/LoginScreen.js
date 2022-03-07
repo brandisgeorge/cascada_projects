@@ -7,6 +7,40 @@ export function LoginScreen(){
     const navigation = useNavigation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+
+    const login = () => {
+  
+      const user = {
+        email: email,
+        password: password
+      };
+      console.log(user)
+      fetch('http://127.0.0.1:8000/api/accounts/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.token) {
+            localStorage.clear();
+            localStorage.setItem('token', data.token);
+            navigation.navigate('Home');
+          } else {
+            localStorage.clear();
+            console.log(data.response)
+          }
+        });
+    };
+  
+
+
+
   return(
     <ImageBackground source={require('./assets/background.png')} 
         style={styles.backImage}
@@ -36,7 +70,7 @@ export function LoginScreen(){
         <TouchableOpacity style={styles.button}>
             <Text style={{fontSize: 24, color: "#D1F892", 
             fontFamily: 'PlayfairDisplay_400Regular'}}
-            onPress={() => navigation.navigate('Home')}>LOGIN</Text>
+            onPress={login}>LOGIN</Text>
 
         </TouchableOpacity>
 

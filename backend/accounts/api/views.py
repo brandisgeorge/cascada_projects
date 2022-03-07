@@ -104,7 +104,7 @@ class ObtainTokenAuthView(APIView):
     
     def post(self, request):
         context = {}
-        email       = request.POST.get('username')
+        email       = request.POST.get('email')
         password    = request.POST.get('password')
         account     = authenticate(email=email, password=password)
         if account:
@@ -115,7 +115,7 @@ class ObtainTokenAuthView(APIView):
             context['response']         = 'Authenticated Successfully'
             context['pk']               = account.pk
             context['email']            = email.lower()
-            context['token']            = token.key
+            context['token']            = token
         else:
             context['response']         = 'Error'
             context['error_message']    = 'Invalid Credentials'

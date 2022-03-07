@@ -10,7 +10,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from accounts.forms import registrationForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt 
 
 #register
 def register_view(request):
@@ -23,7 +25,7 @@ def register_view(request):
             raw_password = form.cleaned_data.get('password1')
             account = authenticate(email=email, password=raw_password)
             login(request, account)
-            messages.succes(request, "Registration success")
+            messages.success(request, "Registration success")
             return redirect('plant')
         else:
             messages.error(request, "Unsuccessful registration. Invalid Information")
