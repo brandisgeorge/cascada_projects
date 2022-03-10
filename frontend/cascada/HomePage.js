@@ -34,10 +34,11 @@ export function HomePage(){
     return(
         <SafeAreaView style={styles.container}>
         <View style={styles.topcontainer}>
-          <Text>Hello, </Text>
-          <Text>{username}</Text>
+          <Text style={styles.userText}>Hello, </Text>
+          <Text style={styles.userText2} >{username}!</Text>
         </View>
-        <View style={{marginHorizontal: 40,}}>
+        <View style={{marginHorizontal: 40, marginBottom: 20}}>
+          <Text style={{fontFamily: ""}}>System Power</Text>
           <Switch
         trackColor={"#D1F892"}
         thumbColor={"#D1F892"}
@@ -56,9 +57,7 @@ export function HomePage(){
           </View>
         </View>
           <ScrollView style={styles.sidescroll} horizontal={true}>
-            <AreaWidget>
-            </AreaWidget>
-            <AreaWidget>
+            <AreaWidget  areaNum = {area1} >
             </AreaWidget>
             <AreaWidget>
             </AreaWidget>
@@ -68,11 +67,20 @@ export function HomePage(){
 }
 
 class AreaWidget extends React.Component {
+  constructor(areaNum) {
+    areaNum = {
+    area1: 'Area 1',
+    area2: 'Area 1'
+  }
+  }
+  
   render() {
+
     return (
       <View>
         <TouchableOpacity style={styles.areaWidget}>
-
+          <Image source={require('./assets/plant1.png')}></Image>
+          <Text>{areaNum}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -81,14 +89,14 @@ class AreaWidget extends React.Component {
 
 export const styles = StyleSheet.create({
     container: {
-        backgroundColor: `#CCFFE5`,
+        backgroundColor: `#a8cfb2`,
         flex: 1,
         
     },
     topcontainer:{
+      margin: 28,
       marginHorizontal: 40,
       flex: .2,
-      marginTop: 10,
       flexDirection: "row",
 
     },
@@ -96,6 +104,17 @@ export const styles = StyleSheet.create({
       flex: .5,
       marginHorizontal: 40,
       flexDirection: "row",
+    },
+
+    userText:{
+      color: "#8ea690",
+      fontSize: 28,
+      fontFamily: "PlayfairDisplay_400Regular"
+    },
+    userText2:{
+      color: "#275161",
+      fontSize: 28,
+      fontFamily: "PlayfairDisplay_400Regular"
     },
 
     sidescroll: {
@@ -140,17 +159,6 @@ export const styles = StyleSheet.create({
       resizeMode: 'cover',
       },
   
-    TextInput: {
-      padding: 10,
-      borderWidth: 1,
-      height: 74,
-      width: 342,
-      margin: 12,
-      borderRadius: 14,
-      borderColor: '#D1F892',
-      backgroundColor: '#DDF6B3',
-      opacity: 50,
-    },
   
     button: {
         height: 70,

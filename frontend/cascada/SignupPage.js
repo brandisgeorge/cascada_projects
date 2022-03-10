@@ -128,6 +128,7 @@ export function SignupPage(){
   
     TextInput: {
       padding: 10,
+      fontSize: 20,
       borderWidth: 1,
       height: 74,
       width: 342,

@@ -103,19 +103,21 @@ class ObtainTokenAuthView(APIView):
     permission_classes = []
     
     def post(self, request):
+        print('request is', request)
         context = {}
-        email       = request.POST.get('email')
-        password    = request.POST.get('password')
+        email       = request.data.get('email')
+        password    = request.data.get('password')
         account     = authenticate(email=email, password=password)
         if account:
             try:
                 token = Token.objects.get(user=account)
+                print(token)
             except Token.DoesNotExist:
                 token = Token.objects.create(user=account)
             context['response']         = 'Authenticated Successfully'
             context['pk']               = account.pk
             context['email']            = email.lower()
-            context['token']            = token
+            context['token']            = token.key
         else:
             context['response']         = 'Error'
             context['error_message']    = 'Invalid Credentials'

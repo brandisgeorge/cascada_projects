@@ -28,6 +28,7 @@ export function LoginScreen(){
         .then(response => response.json())
         .then(data => {
           if (data.token) {
+            console.log(data.response)
             localStorage.clear();
             localStorage.setItem('token', data.token);
             navigation.navigate('Home');
@@ -117,6 +118,7 @@ export const styles = StyleSheet.create({
     TextInput: {
       padding: 10,
       borderWidth: 1,
+      fontSize: 20,
       height: 74,
       width: 342,
       margin: 12,
