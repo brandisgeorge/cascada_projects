@@ -97,7 +97,7 @@ def update_account_view(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)          
 #user login
 #url: /api/accounts/login
-class ObtainTokenAuthView(APIView):
+class ObtainAuthTokenView(APIView):
     
     authentication_classes = []
     permission_classes = []
@@ -105,8 +105,13 @@ class ObtainTokenAuthView(APIView):
     def post(self, request):
         print('request is', request)
         context = {}
+<<<<<<< HEAD
         email       = request.data.get('email')
         password    = request.data.get('password')
+=======
+        email       = request.POST.get('username')
+        password    = request.POST.get('password')
+>>>>>>> cffa2d450e2201e69993f1962da0984d1f12e402
         account     = authenticate(email=email, password=password)
         if account:
             try:
