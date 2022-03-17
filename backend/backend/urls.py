@@ -32,4 +32,5 @@ urlpatterns = [
     
     #api rest framework
     path('api/accounts/',include('accounts.api.urls', 'accounts_api')),
+    path('api/modules/', include('modules.api.urls', 'modules_api')),
 ]
