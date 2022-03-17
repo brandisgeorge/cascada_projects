@@ -8,20 +8,20 @@ from modules.api.serializers import plantModuleSerializer
 
 
 @api_view(['GET'])
-def detailPlant(request, pk):
+def detailPlant_view(request, pk):
     plant = plantModule.objects.get(id=pk)
     serializer = plantModuleSerializer(plant, many=False)
     return Response(serializer.data)
 
 @api_view(['POST'])
-def createPlant(request):
+def createPlant_view(request):
     data = request.data
     plants = plantModule.objects.create(body = data['plants'])
     serializer = plantModuleSerializer(plants, many=False)
     return Response(serializer.data)
 
 @api_view(['PUT'])
-def updatePlant(request, pk):
+def updatePlant_view(request, pk):
     data = request.data
     plants = plantModule.objects.get(id=pk)
     serializer = plantModuleSerializer(instance=plants, data=data)
@@ -32,7 +32,7 @@ def updatePlant(request, pk):
     return Response(serializer.data)
 
 @api_view(['DELETE'])
-def deletePlant(request, pk):
+def deletePlant_view(request, pk):
     plants = plantModule.objects.get(id=pk)
     plants.delete()
     return Response('Plant module was deleted successfully.')
