@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View, Button, ImageBackground, Image, TextInput, TouchableOpacity } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { withSafeAreaInsets } from 'react-native-safe-area-context';
+import SliderNativeComponent from 'react-native/Libraries/Components/Slider/SliderNativeComponent';
 
 
 export function LoginScreen(){
@@ -18,7 +21,7 @@ export function LoginScreen(){
         password: password
       };
       console.log(user)
-      fetch('http://127.0.0.1:8000/api/accounts/login', {
+      fetch('http://192.168.0.155:8000/api/accounts/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -26,15 +29,21 @@ export function LoginScreen(){
         body: JSON.stringify(user)
       })
         .then(response => response.json())
-        .then(data => {
+        .then( async(data) => {
           if (data.token) {
-            console.log(data.response)
-            localStorage.clear();
-            localStorage.setItem('token', data.token);
+            function sleep(ms) {
+              return new Promise(resolve => setTimeout(resolve, ms));
+            }
+            console.log(data.token);
+            console.log(data.response);
+            await AsyncStorage.getAllKeys().then(AsyncStorage.multiRemove);
+            await AsyncStorage.setItem('token', data.token);
+            console.log("Token before is", await AsyncStorage.getItem("token"));
+            await sleep(1000)
             navigation.navigate('Home');
           } else {
-            localStorage.clear();
-            console.log(data.response)
+            AsyncStorage.getAllKeys().then(AsyncStorage.multiRemove)
+            console.log("Wrong email/password")
           }
         });
     };

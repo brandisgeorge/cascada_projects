@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, Button, ImageBackground, Image, TextInput, TouchableOpacity } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import React, { useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export function SignupPage(){
     const navigation = useNavigation();
@@ -20,7 +22,7 @@ export function SignupPage(){
       password2: password2
     };
      console.log(user)
-      fetch('http://127.0.0.1:8000/api/accounts/register',{
+      fetch('http://192.168.0.155:8000/api/accounts/register',{
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -28,15 +30,19 @@ export function SignupPage(){
         body: JSON.stringify(user)
       })
       .then(response => response.json())
-      .then(data => {
+      .then(async(data) => {
         if (data.token) {
+          function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+          }
           console.log('did work data is', data)
-          localStorage.clear();
-          localStorage.setItem('token', data.token);
+          await AsyncStorage.getAllKeys().then(AsyncStorage.multiRemove)
+          await AsyncStorage.setItem('token', data.token);
+          await sleep(1000);
           navigation.navigate('Home');
         } else {
           console.log("didnt work data is", data)
-          localStorage.clear();
+          AsyncStorage.getAllKeys().then(AsyncStorage.multiRemove)
         }
       });
     };
@@ -54,7 +60,7 @@ export function SignupPage(){
       </View>
 
       <View style = {styles.innnerView}>
-        <Text style={{ margin: 40, fontSize: 40, color: '#275161', fontFamily: 'PlayfairDisplay_400Regular', }} > Get Started </Text>
+        <Text style={{ margin: 12, fontSize: 40, color: '#275161', fontFamily: 'PlayfairDisplay_400Regular', }} > Get Started </Text>
         
         <TextInput
           style={styles.TextInput}
@@ -132,7 +138,7 @@ export function SignupPage(){
       borderWidth: 1,
       height: 74,
       width: 342,
-      margin: 12,
+      margin: 5,
       borderRadius: 14,
       borderColor: '#D1F892',
       backgroundColor: '#DDF6B3',
