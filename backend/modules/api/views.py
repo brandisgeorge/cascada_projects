@@ -1,38 +1,42 @@
-from django.http import response
-from django.shortcuts import render
+from urllib import response
+from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.generics import ListAPIView
+from rest_framework.filters import OrderingFilter
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_class
 from rest_framework.serializers import Serializer
 from modules.models import plantModule
-from modules.api.serializers import plantModuleSerializer
+from accounts.models import Accounts
+from modules.api.serializers import plantModuleSerializer,createplantModuleSerializer
 
+SUCCESS = 'success'
+ERROR = 'error'
+DELETE_SUCCCESS = 'deleted'
+UPDATE_SUCCESS = 'updated'
+CREATE_SUCCESS = 'created'
 
 @api_view(['GET'])
+@permission_class((IsAuthenticated, ))
 def detailPlant_view(request, pk):
-    plant = plantModule.objects.get(id=pk)
-    serializer = plantModuleSerializer(plant, many=False)
-    return Response(serializer.data)
-
-@api_view(['POST'])
-def createPlant_view(request):
-    data = request.data
-    plants = plantModule.objects.create(body = data['plants'])
-    serializer = plantModuleSerializer(plants, many=False)
-    return Response(serializer.data)
-
-@api_view(['PUT'])
-def updatePlant_view(request, pk):
-    data = request.data
-    plants = plantModule.objects.get(id=pk)
-    serializer = plantModuleSerializer(instance=plants, data=data)
+    if request.method == 'GET':
+        serializer = plantModuleSerializer(plant_module)
+        return Response(serializer.data)
     
-    if serializer.is_valid():
-        serializer.save()
-        
-    return Response(serializer.data)
-
-@api_view(['DELETE'])
-def deletePlant_view(request, pk):
-    plants = plantModule.objects.get(id=pk)
-    plants.delete()
-    return Response('Plant module was deleted successfully.')
+@api_view(['POST'])
+@permission_class((IsAuthenticated,))
+def createPlant_view(request):
+    if request.method =='POST':
+        data = request.data
+        serializer =createplantModuleSerializer(data=data)
+        data = {}
+        if serializer.is_valid():
+            plant_module = serializer.save()
+            data['response'] = CREATE_SUCCESS
+            data['name'] = plant_module.name
+            data['plants'] = plant_module.plants
+            data['valve'] = plant_module.valve
+            return Response(data=data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

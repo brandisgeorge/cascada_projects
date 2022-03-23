@@ -8,7 +8,7 @@ class createPlantModuleForm(forms.ModelForm):
         
     
     
-class editPlantModuleForm(forms.ModelForm):
+class updatePlantModuleForm(forms.ModelForm):
     class Meta:
         model= plantModule
         fields = ['name','plants']
@@ -16,7 +16,7 @@ class editPlantModuleForm(forms.ModelForm):
     def save(self, commit=True):
         plant_module = self.instance
         plant_module.name = self.cleaned_data['name']
-        plant_module.plants = self.cleaned_data['body']
+        plant_module.plants = self.cleaned_data['plants']
         
         if commit:
             plant_module.save()

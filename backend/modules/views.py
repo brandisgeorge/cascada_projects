@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse
 from modules.models import plantModule
 from accounts.models import Accounts
-from modules.forms import createPlantModuleForm, editPlantModuleForm
+from modules.forms import createPlantModuleForm, updatePlantModuleForm
 # Create your views here.
 
 def createPlantModuleView(request):

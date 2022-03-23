@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class plantModule(models.Model):
     
-    plants = models.TextField(max_length=5000, null=True, blank=True)
+    plants = models.TextField(max_length=5000, null=False, blank=True)
    
     name = models.CharField(max_length=50, null= False, blank=True)
    
