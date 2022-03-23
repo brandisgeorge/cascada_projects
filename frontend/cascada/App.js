@@ -5,8 +5,11 @@ import AppLoading from 'expo-app-loading';
 import { LoginScreen } from './LoginScreen';
 import { SignupPage } from './SignupPage';
 import { HomePage } from './HomePage';
-import React from 'react';
+import { createPlant } from './createPlant';
+import { plantArea } from './Area';
+import 'localstorage-polyfill';
 
+import React from 'react';
 
 
 const Stack = createNativeStackNavigator();
@@ -23,10 +26,13 @@ export default function App() {
     return(
       <NavigationContainer>
         <Stack.Navigator   screenOptions={{headerShown: false}}>
+          
           <Stack.Screen name='Login' component={LoginScreen} />
           <Stack.Screen name='Signup' component={SignupPage} />
           <Stack.Screen name='Home' component={HomePage} />
-          
+          <Stack.Screen name='cPlant' component={createPlant} />
+          <Stack.Screen name='Area' component={plantArea} />
+
         </Stack.Navigator>
       </NavigationContainer>
   );}
