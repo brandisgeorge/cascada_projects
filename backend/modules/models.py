@@ -6,7 +6,7 @@ class plantModule(models.Model):
     
     plants = models.TextField(max_length=5000, null=False, blank=True)
    
-    name = models.CharField(max_length=50, null= False, blank=True)
+    name = models.CharField(max_length=50, null= False)
    
     valve = models.BooleanField(default=True)
     

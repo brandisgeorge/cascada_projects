@@ -26,10 +26,9 @@ export default function App() {
     return(
       <NavigationContainer>
         <Stack.Navigator   screenOptions={{headerShown: false}}>
-          
           <Stack.Screen name='Login' component={LoginScreen} />
-          <Stack.Screen name='Signup' component={SignupPage} />
           <Stack.Screen name='Home' component={HomePage} />
+          <Stack.Screen name='Signup' component={SignupPage} />
           <Stack.Screen name='cPlant' component={createPlant} />
           <Stack.Screen name='Area' component={plantArea} />
 

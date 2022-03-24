@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Entypo } from '@expo/vector-icons'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Ionicons } from '@expo/vector-icons'; 
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 
 import PropTypes from 'prop-types';
@@ -72,7 +72,7 @@ export function HomePage(){
         </View>
         
         <View style={styles.notificationcontainer}>
-          <TouchableOpacity style={styles.button}></TouchableOpacity>
+          <TouchableOpacity style={styles.button}><MaterialCommunityIcons name="pot" size={24} color="black" /></TouchableOpacity>
           <View style={{flexDirection: "column"}}>
             <Text>Area 2</Text>
             <Text>Area 2 has finished watering</Text>
