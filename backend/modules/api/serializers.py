@@ -11,6 +11,6 @@ class createplantModuleSerializer(serializers.ModelSerializer):
         model = plantModule
         fields = '__all__'
     def save(self):
-            plant_module = plantModule(name = name, plants=plants)
+            plant_module = plantModule(name= self.validated_data["name"], plants= self.validated_data["plants"], valve= self.validated_data["valve"])
             plant_module.save()
             return plant_module
