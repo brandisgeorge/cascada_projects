@@ -8,14 +8,49 @@ import AnimatedProgressWheel from 'react-native-progress-wheel';
 export function plantArea(){
     const navigation  = useNavigation();
     const [isEnabled, setIsEnabled] = useState(false);
+    const [areaname, setAreaname] = useState('')
+
+
+    useEffect(() =>{
+
+        const fetchData = async () => {
+          const dtoken = await AsyncStorage.getItem('token');    
+          
+          if (dtoken === null) {
+            console.log("going back")
+            navigation.navigate('Home');
+          } else {
+            console.log("token is ",dtoken );
+            //fetch('http://192.168.0.155:8000/api/modules/detailplant', {
+            fetch('http://172.24.19.208:8000/api/modules/detailplant', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${dtoken}`
+              }
+            })
+              .then(res => res.json())
+              .then(data => {
+                setAreaname(data.name);
+                setIsEnabled(data.valve);
+                console.log("area name is",data.name);
+                setLoading(false);
+              });
+          }
+          }
+        
+        fetchData()
+    
+      }, []);
+
 
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     return(
         <SafeAreaView style={styles.container}>
             <Ionicons onPress={() => navigation.navigate('Home')} name="arrow-back" size={25} color="black" />
             <View style={styles.headercontainer}>
-                <Text style={styles.header}>Area 1</Text>
-                <Text>Details of Area 1</Text>
+                <Text style={styles.header}>{areaname}</Text>
+                <Text>Details of {areaname}</Text>
 
             </View>
             

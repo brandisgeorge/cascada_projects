@@ -20,7 +20,7 @@ CREATE_SUCCESS = 'created'
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, ))
-def detailPlant_view(request, pk):
+def detailPlant_view(request):
     if request.method == 'GET':
         serializer = plantModuleSerializer(plantModule)
         return Response(serializer.data)

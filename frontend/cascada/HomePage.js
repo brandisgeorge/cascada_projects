@@ -8,17 +8,17 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 import PropTypes from 'prop-types';
+import { setStatusBarNetworkActivityIndicatorVisible } from "expo-status-bar";
 
-const areaProp = [
-  {key: '1', arean: 'Area1', areaPic: require('./assets/plant1.png')},
-  {key: '2', arean: 'Area2', areaPic: require('./assets/Cactus.png')}
-]
+
 
 export function HomePage(){ 
   const navigation = useNavigation();
   const [isEnabled, setIsEnabled] = useState(false);
   const [username, setUsername] = useState('')
   const [loading, setLoading] = useState(true);
+
+  const [areaname, setAreaname] = useState('');
 
   useEffect(() =>{
 
@@ -30,7 +30,8 @@ export function HomePage(){
         navigation.navigate('Login');
       } else {
         console.log("token is ",dtoken );
-        fetch('http://192.168.0.155:8000/api/accounts/details', {
+        //fetch('http://192.168.0.155:8000/api/accounts/details', {
+          fetch('http://172.24.19.208:8000/api/accounts/details', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -43,14 +44,42 @@ export function HomePage(){
             console.log("user name is",data.username);
             setLoading(false);
           });
+          fetch('http://172.24.19.208:8000/api/modules/detailplant', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${dtoken}`
+          }
+        })
+          .then(res => res.json())
+          .then(data => {
+            setAreaname(data.name);
+            console.log("Area name is",data);
+            setLoading(false);
+          });
       }
       }
-    
+
     fetchData()
 
   }, []);
 
+  const areaProp = [
+    {key: '1', arean: 'Area1', areaPic: require('./assets/plant1.png')},
+    {key: '2', arean: 'Area2', areaPic: require('./assets/Cactus.png')}
+  ]
 
+  const AreaWidget = () => {
+    return areaProp.map((props) => {
+       return (
+         <View key = {props.key}>
+           <TouchableOpacity style={styles.areaWidget}>
+             <Image style={styles.areaImage} source={require('./assets/plant1.png')}></Image>
+             <Text>{props.arean}</Text>
+           </TouchableOpacity>
+         </View>
+       );
+   })}
 
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     return(
@@ -92,17 +121,7 @@ export function HomePage(){
 
 
 
-const AreaWidget = () => {
- return areaProp.map((props) => {
-    return (
-      <View key = {props.key}>
-        <TouchableOpacity style={styles.areaWidget}>
-          <Image style={styles.areaImage} source={props.areaPic}></Image>
-          <Text>{props.arean}</Text>
-        </TouchableOpacity>
-      </View>
-    );
-})}
+
 
 const styles = StyleSheet.create({
     container: {
