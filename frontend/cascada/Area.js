@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { StyleSheet,Switch, Text, View, Button, ImageBackground, Image, TextInput, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
-import PropTypes from 'prop-types';
 import { Ionicons, FontAwesome, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import AnimatedProgressWheel from 'react-native-progress-wheel';
 
@@ -9,12 +8,52 @@ import AnimatedProgressWheel from 'react-native-progress-wheel';
 export function plantArea(){
     const navigation  = useNavigation();
     const [isEnabled, setIsEnabled] = useState(false);
+    const [areaname, setAreaname] = useState('')
+
+
+    useEffect(() =>{
+
+        const fetchData = async () => {
+          const dtoken = await AsyncStorage.getItem('token');    
+          
+          if (dtoken === null) {
+            console.log("going back")
+            navigation.navigate('Home');
+          } else {
+            console.log("token is ",dtoken );
+            //fetch('http://192.168.0.155:8000/api/modules/detailplant', {
+            fetch('http://172.24.19.208:8000/api/modules/detailplant', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${dtoken}`
+              }
+            })
+              .then(res => res.json())
+              .then(data => {
+                setAreaname(data.name);
+                setIsEnabled(data.valve);
+                console.log("area name is",data.name);
+                setLoading(false);
+              });
+          }
+          }
+        
+        fetchData()
+    
+      }, []);
+
 
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     return(
         <SafeAreaView style={styles.container}>
             <Ionicons onPress={() => navigation.navigate('Home')} name="arrow-back" size={25} color="black" />
-            <Text>Area 1</Text>
+            <View style={styles.headercontainer}>
+                <Text style={styles.header}>{areaname}</Text>
+                <Text>Details of {areaname}</Text>
+
+            </View>
+            
             <View style={styles.rowcontainer}>
                 <TouchableOpacity style={styles.button2}><FontAwesome name="percent" size={24} color="white" /></TouchableOpacity>
                 <TouchableOpacity style={styles.button2}><Feather name="sun" size={24} color="white" /></TouchableOpacity>
@@ -32,11 +71,11 @@ export function plantArea(){
             </View>
             <View style={styles.rowcontainer}>
                 <View style={{flex: 1,}}>
-                    <Text>Ideal Percentage</Text>
-                    <Text>50%</Text>
+                    <Text style={styles.commonText}>Ideal Percentage</Text>
+                    <Text style={styles.commonText}>50%</Text>
                 </View>
                 <View style={{flex: 1,}}>
-                    <Text>Turn On/Off</Text>
+                    <Text style={styles.commonText}>Turn On/Off</Text>
                     <Switch
         trackColor={"#D1F892"}
         thumbColor={"#D1F892"}
@@ -48,7 +87,7 @@ export function plantArea(){
             </View>
             <View style={{flex: .3, alignItems: "center"}}>
                 <TouchableOpacity style={styles.bigButton}>
-                    <Text>Set Ideal Water Percentage</Text>
+                    <Text style={{fontSize: 18,}}>Set Ideal Water Percentage</Text>
                 </TouchableOpacity>
             </View>
                 
@@ -66,6 +105,20 @@ const styles = StyleSheet.create({
         backgroundColor: `#a8cfb2`,
         flex: 1,
         
+    },
+    headercontainer: {
+        marginHorizontal: 40,
+        
+    },
+
+    header: {
+        fontFamily: "PlayfairDisplay_400Regular",
+        fontSize: 28,
+    },
+
+    commonText: {
+        fontFamily: "PlayfairDisplay_400Regular",
+        fontSize: 15,
     },
 
     rowcontainer:{

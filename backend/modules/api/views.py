@@ -6,7 +6,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.generics import ListAPIView
 from rest_framework.filters import OrderingFilter
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_class
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.serializers import Serializer
 from modules.models import plantModule
 from accounts.models import Accounts
@@ -19,14 +19,14 @@ UPDATE_SUCCESS = 'updated'
 CREATE_SUCCESS = 'created'
 
 @api_view(['GET'])
-@permission_class((IsAuthenticated, ))
-def detailPlant_view(request, pk):
+@permission_classes((IsAuthenticated, ))
+def detailPlant_view(request):
     if request.method == 'GET':
-        serializer = plantModuleSerializer(plant_module)
+        serializer = plantModuleSerializer(plantModule)
         return Response(serializer.data)
     
 @api_view(['POST'])
-@permission_class((IsAuthenticated,))
+@permission_classes((IsAuthenticated,))
 def createPlant_view(request):
     if request.method =='POST':
         data = request.data
