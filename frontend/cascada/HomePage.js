@@ -30,8 +30,9 @@ export function HomePage(){
         navigation.navigate('Login');
       } else {
         console.log("token is ",dtoken );
-        //fetch('http://192.168.0.155:8000/api/accounts/details', {
-          fetch('http://172.24.19.208:8000/api/accounts/details', {
+        //luxx fetch('http://192.168.0.155:8000/api/accounts/details', {
+        // utsafetch('http://172.24.19.208:8000/api/accounts/details', {
+          fetch('http://127.0.0.1:8000/api/accounts/details', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -44,7 +45,7 @@ export function HomePage(){
             console.log("user name is",data.username);
             setLoading(false);
           });
-          fetch('http://172.24.19.208:8000/api/modules/detailplant', {
+          fetch('http://127.0.0.1:8000/api/modules/detailplant', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

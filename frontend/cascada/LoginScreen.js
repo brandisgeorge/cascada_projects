@@ -22,8 +22,8 @@ export function LoginScreen(){
       };
       console.log(user)
       //fetch('http://192.168.0.155:8000/api/accounts/login', {
-        fetch('http://172.24.19.208:8000/api/accounts/login', {
-
+      //fetch('http://172.24.19.208:8000/api/accounts/login', {
+      fetch('http://127.0.0.1:8000/api/accounts/login', {
       method: 'POST',
         headers: {
           'Content-Type': 'application/json'
