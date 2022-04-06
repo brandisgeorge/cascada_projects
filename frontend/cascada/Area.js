@@ -22,8 +22,9 @@ export function plantArea(){
           } else {
             console.log("token is ",dtoken );
             //fetch('http://192.168.0.155:8000/api/modules/detailplant', {
-            fetch('http://172.24.19.208:8000/api/modules/detailplant', {
-              method: 'GET',
+            //fetch('http://172.24.19.208:8000/api/modules/detailplant', {
+            fetch('http://127.0.0.1:8000/api/modules/detailplant', {
+            method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Token ${dtoken}`
