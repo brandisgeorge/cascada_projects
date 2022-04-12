@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.db import connections
+from django.db import models
 # Create your models here.
 class plantModule(models.Model):
     
@@ -14,5 +15,15 @@ class plantModule(models.Model):
         return self.name
     #orders the modules by which ones are on and off
     class Meta:
-        ordering = ['valve']
+        ordering = ['name']
 #class plantModuleDetails(models.Model):
+
+class plantmoisture(models.Model):
+    id = models.AutoField(primary_key = True)
+    moisture = models.IntegerField()
+    
+    class Meta:
+        db_table = "moisture"
+        
+        def __str__(self):
+            return self.moisture

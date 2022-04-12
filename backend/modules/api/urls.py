@@ -1,5 +1,5 @@
 from django.urls import path
-from modules.api.views import (createPlant_view,detailPlant_view)
+from modules.api.views import (createPlant_view,detailPlant_view,showMoisture_view)
 
 app_name = 'modules'
 urlpatterns = [
@@ -7,4 +7,5 @@ urlpatterns = [
    # path('deleteplant', deletePlant_view, name= "deleteplant"),
     path('detailplant', detailPlant_view, name = "detailplant"),
     #path('updateplant', updatePlant_view, name ="updateplant")
+    path('plantmoisture', showMoisture_view, name= "plantmoisture")
 ]
