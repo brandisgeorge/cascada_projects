@@ -22,8 +22,8 @@ export function LoginScreen(){
       };
       console.log(user)
       //fetch('http://192.168.0.155:8000/api/accounts/login', {
-      //fetch('http://172.24.19.208:8000/api/accounts/login', {
-      fetch('http://127.0.0.1:8000/api/accounts/login', {
+      fetch('http://172.24.19.180:8000/api/accounts/login', {
+      //fetch('http://127.0.0.1:8000/api/accounts/login', {
       method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -79,10 +79,10 @@ export function LoginScreen(){
           placeholder='Password'
           />
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={login} style={styles.button}>
             <Text style={{fontSize: 24, color: "#D1F892", 
             fontFamily: 'PlayfairDisplay_400Regular'}}
-            onPress={login}>LOGIN</Text>
+            >LOGIN</Text>
 
         </TouchableOpacity>
 

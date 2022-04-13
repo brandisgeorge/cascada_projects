@@ -8,9 +8,9 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.serializers import Serializer
-from modules.models import plantModule
+from modules.models import plantModule, plantmoisture
 from accounts.models import Accounts
-from modules.api.serializers import plantModuleSerializer,createplantModuleSerializer
+from modules.api.serializers import plantModuleSerializer,createplantModuleSerializer, mositureSerializer
 
 SUCCESS = 'success'
 ERROR = 'error'
@@ -40,3 +40,19 @@ def createPlant_view(request):
             data['valve'] = plant_module.valve
             return Response(data=data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+ 
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+def showMoisture_view(request):
+   if request.method == 'GET':
+       queryset = plantmoisture.objects.all()
+       read_serializer = mositureSerializer(queryset, many = True)
+       return Response(read_serializer.data)
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def listPlantModuleView(request):
+    if request.method == 'GET':
+        queryset = plantModule.objects.all()
+        serializer = plantModuleSerializer(queryset, many=True)
+    return Response(serializer.data)

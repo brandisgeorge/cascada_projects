@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-)(p=$&1efrx+gd$+8nb7xi4ib)t2l4)36r6yo!0#!n**u5^54g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.0.155","172.24.19.208"]
+ALLOWED_HOSTS = ["192.168.0.155","172.24.19.180",'127.0.0.1']
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -96,23 +96,26 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
- #       'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'Design2!!',
-#        'HOST': '127.0.0.1',
-#        'PORT': '3306',
-#        'USER': 'localhost',
-#        'PASSWORD': 'cascadaw_millen',
-#    }
-#}
-
 DATABASES = {
     'default': {
-    'ENGINE': 'django.db.backends.sqlite3',
-    'NAME': 'mydatabase',
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'cascadaw_module',
+    'USER': 'cascadaw_brandis',
+    'PASSWORD': 'cascada',
+    'HOST': 'cascadawatering.com',
+    'PORT': '3306',
+    #'OPTIONS': {
+        #'sql_mode': 'STRICT_ALL_TABLES',
+   # },
     }
 }
+
+#DATABASES = {
+ #   'default': {
+  #  'ENGINE': 'django.db.backends.sqlite3',
+   # 'NAME': 'mydatabase',
+    #}
+#}
 #'host' --> '127.0.0.1'
 
 # Password validation

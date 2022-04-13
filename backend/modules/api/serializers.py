@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from modules.models import plantModule
+from django.db import connections
+from django.db import models
+from modules.models import plantmoisture
 
 class plantModuleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,3 +17,9 @@ class createplantModuleSerializer(serializers.ModelSerializer):
             plant_module = plantModule(name= self.validated_data["name"], plants= self.validated_data["plants"], valve= self.validated_data["valve"])
             plant_module.save()
             return plant_module
+
+class mositureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = plantmoisture
+        fiels = ['id', 'moisture']
+        extra_kwargs = {'id': {'required': False}}

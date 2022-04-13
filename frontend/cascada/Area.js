@@ -3,12 +3,15 @@ import { StyleSheet,Switch, Text, View, Button, ImageBackground, Image, TextInpu
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons, FontAwesome, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import AnimatedProgressWheel from 'react-native-progress-wheel';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export function plantArea(){
     const navigation  = useNavigation();
     const [isEnabled, setIsEnabled] = useState(false);
     const [areaname, setAreaname] = useState('')
+    const [areaValue, setAreaValue] = useState('')
+
 
 
     useEffect(() =>{
@@ -22,8 +25,8 @@ export function plantArea(){
           } else {
             console.log("token is ",dtoken );
             //fetch('http://192.168.0.155:8000/api/modules/detailplant', {
-            //fetch('http://172.24.19.208:8000/api/modules/detailplant', {
-            fetch('http://127.0.0.1:8000/api/modules/detailplant', {
+            fetch('http://172.24.19.180:8000/api/modules/detailplant', {
+            //fetch('http://127.0.0.1:8000/api/modules/detailplant', {
             method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
@@ -37,6 +40,21 @@ export function plantArea(){
                 console.log("area name is",data.name);
                 setLoading(false);
               });
+              fetch('http://172.24.19.180:8000/api/modules/plantmoisture', {
+                //fetch('http://127.0.0.1:8000/api/modules/plantmoisture', {
+                method: 'GET',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${dtoken}`
+                  }
+                })
+                  .then(res => res.json())
+                  .then(data => {
+                    setAreaValue(data.moisture);
+                    console.log("area value is",data.moisture);
+                    setLoading(false);
+                  });
+              
           }
           }
         
