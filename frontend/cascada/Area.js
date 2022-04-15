@@ -26,7 +26,7 @@ export function plantArea(){
             console.log("token is ",dtoken );
             //fetch('http://192.168.0.155:8000/api/modules/detailplant', {
             fetch('http://172.24.19.180:8000/api/modules/detailplant', {
-            //fetch('http://127.0.0.1:8000/api/modules/detailplant', {
+            //fetch('http://10.20.74.19:8000/api/modules/detailplant', {
             method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
@@ -41,7 +41,8 @@ export function plantArea(){
                 setLoading(false);
               });
               fetch('http://172.24.19.180:8000/api/modules/plantmoisture', {
-                //fetch('http://127.0.0.1:8000/api/modules/plantmoisture', {
+              //fetch('http://192.168.0.155:8000/api/modules/plantmoisture', {
+              //fetch('http://10.20.74.19:8000/api/modules/plantmoisture', {
                 method: 'GET',
                   headers: {
                     'Content-Type': 'application/json',
@@ -69,7 +70,6 @@ export function plantArea(){
             <Ionicons onPress={() => navigation.navigate('Home')} name="arrow-back" size={25} color="black" />
             <View style={styles.headercontainer}>
                 <Text style={styles.header}>{areaname}</Text>
-                <Text>Details of {areaname}</Text>
 
             </View>
             
@@ -83,10 +83,12 @@ export function plantArea(){
                     size={290} 
                     width={40} 
                     color={'#D1F892'}
-                    progress={20}
+                    progress={30}
                     backgroundColor={'#5EA671'}
                     
                 />
+                <Text style={{fontSize:42,fontFamily: "PlayfairDisplay_400Regular"}}>{areaValue}%</Text>
+                <Text style={{fontSize:20,fontFamily: "PlayfairDisplay_400Regular"}}>moisture</Text>
             </View>
             <View style={styles.rowcontainer}>
                 <View style={{flex: 1,}}>

@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.serializers import Serializer
 from modules.models import plantModule, plantmoisture
 from accounts.models import Accounts
-from modules.api.serializers import plantModuleSerializer,createplantModuleSerializer, mositureSerializer
+from modules.api.serializers import plantModuleSerializer,createplantModuleSerializer, moistureSerializer
 
 SUCCESS = 'success'
 ERROR = 'error'
@@ -22,7 +22,8 @@ CREATE_SUCCESS = 'created'
 @permission_classes((IsAuthenticated, ))
 def detailPlant_view(request):
     if request.method == 'GET':
-        serializer = plantModuleSerializer(plantModule)
+        plant = plantModule.objects.get()
+        serializer = plantModuleSerializer(plant)
         return Response(serializer.data)
     
 @api_view(['POST'])
@@ -45,8 +46,8 @@ def createPlant_view(request):
 @permission_classes((IsAuthenticated, ))
 def showMoisture_view(request):
    if request.method == 'GET':
-       queryset = plantmoisture.objects.all()
-       read_serializer = mositureSerializer(queryset, many = True)
+       queryset = plantmoisture.objects.get()
+       read_serializer = moistureSerializer(queryset)
        return Response(read_serializer.data)
 
 @api_view(['GET'])

@@ -22,7 +22,7 @@ export function SignupPage(){
       password2: password2
     };
      console.log(user)
-      fetch('http://192.168.0.155:8000/api/accounts/register',{
+      fetch('http://172.24.19.180:8000/api/accounts/register',{
         method: "POST",
         headers: {
           'Content-Type': 'application/json'

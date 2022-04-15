@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from "react";
 import { StyleSheet, Switch, Text, View, Button, ImageBackground, Image, TextInput, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
-import { Entypo } from '@expo/vector-icons'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Ionicons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons'; 
 
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 
 import PropTypes from 'prop-types';
@@ -31,8 +30,8 @@ export function HomePage(){
       } else {
         console.log("token is ",dtoken );
         //fetch('http://192.168.0.155:8000/api/accounts/details', {
-         fetch('http://172.24.19.180:8000/api/accounts/details', {
-          //fetch('http://127.0.0.1:8000/api/accounts/details', {
+        fetch('http://172.24.19.180:8000/api/accounts/details', {
+        //fetch('http://10.20.74.19:8000/api/accounts/details', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -109,7 +108,7 @@ export function HomePage(){
         </View>
         
         <View style={styles.notificationcontainer}>
-          <TouchableOpacity style={styles.button}><MaterialCommunityIcons name="pot" size={24} color="black" /></TouchableOpacity>
+          <TouchableOpacity style={styles.button}><Entypo name="flower" size={24} color="white" /></TouchableOpacity>
           <View style={{flexDirection: "column"}}>
             <Text>Area 2</Text>
             <Text>Area 2 has finished watering</Text>
@@ -117,10 +116,14 @@ export function HomePage(){
         </View>
           <ScrollView style={styles.sidescroll} horizontal={true}>
             <AreaWidget arean = {areaProp.name}></AreaWidget>
+            <TouchableOpacity style={styles.areaWidget}>
+             <Image style={styles.areaImage} source={require('./assets/Cactus.png')}></Image>
+             <Text>Area2</Text>
+           </TouchableOpacity>
           </ScrollView>
-          <View style={styles.notificationcontainer}> 
-            <TouchableOpacity style={styles.button2}></TouchableOpacity>
-            <TouchableOpacity style={styles.button2}><Ionicons name="person-circle-outline" size={24} color="white" /></TouchableOpacity>
+          <View style={styles.notificationcontainer2}>             
+          <TouchableOpacity style={styles.button2}><Ionicons name="person-circle-outline" size={24} color="white" /></TouchableOpacity>
+            <TouchableOpacity style={styles.button3} ><Image style={styles.iconImage} source={require('./assets/cascada.png')}/></TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('cPlant')} style={styles.button2}><Entypo name="plus" size={24} color="white" /></TouchableOpacity>
           </View>
         </SafeAreaView>
@@ -154,8 +157,16 @@ const styles = StyleSheet.create({
 
 
     notificationcontainer:{
-      flex: .5,
+      alignItems: 'center',
       marginHorizontal: 40,
+      flex: .3,
+      flexDirection: "row",
+    },
+
+    notificationcontainer2:{
+      alignItems: 'center',
+      marginHorizontal: 70,
+      flex: .3,
       flexDirection: "row",
     },
 
@@ -186,9 +197,8 @@ const styles = StyleSheet.create({
     },
     
     iconImage: {
-      top: 50,
-      width: 200,
-      height: 200,
+      width: 70,
+      height: 70,
       resizeMode: 'contain',
     },
     imageView: {
@@ -234,5 +244,14 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
     },
+    button3: {
+      height: 70,
+      width: 70,
+      margin: 12,
+      marginHorizontal: 20,
+      borderRadius: 14,
+      alignItems: "center",
+      justifyContent: "center",
+  },
   });
 

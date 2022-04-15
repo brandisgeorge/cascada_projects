@@ -7,7 +7,8 @@ from modules.models import plantmoisture
 class plantModuleSerializer(serializers.ModelSerializer):
     class Meta:
         model = plantModule
-        fields = '__all__'
+        fields = ['name', 'plants', 'valve',]
+
         
 class createplantModuleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,8 +19,8 @@ class createplantModuleSerializer(serializers.ModelSerializer):
             plant_module.save()
             return plant_module
 
-class mositureSerializer(serializers.ModelSerializer):
+class moistureSerializer(serializers.ModelSerializer):
     class Meta:
         model = plantmoisture
-        fiels = ['id', 'moisture']
+        fields = ['id', 'moisture']
         extra_kwargs = {'id': {'required': False}}
