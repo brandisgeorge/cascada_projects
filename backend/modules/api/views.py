@@ -11,13 +11,11 @@ from rest_framework.serializers import Serializer
 from modules.models import plantModule, plantmoisture
 from accounts.models import Accounts
 from modules.api.serializers import plantModuleSerializer,createplantModuleSerializer, moistureSerializer
-
 SUCCESS = 'success'
 ERROR = 'error'
 DELETE_SUCCCESS = 'deleted'
 UPDATE_SUCCESS = 'updated'
 CREATE_SUCCESS = 'created'
-
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, ))
 def detailPlant_view(request):
@@ -25,7 +23,6 @@ def detailPlant_view(request):
         plant = plantModule.objects.get()
         serializer = plantModuleSerializer(plant)
         return Response(serializer.data)
-    
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def createPlant_view(request):
@@ -41,7 +38,6 @@ def createPlant_view(request):
             data['valve'] = plant_module.valve
             return Response(data=data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
- 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, ))
 def showMoisture_view(request):
@@ -49,7 +45,6 @@ def showMoisture_view(request):
        queryset = plantmoisture.objects.get()
        read_serializer = moistureSerializer(queryset)
        return Response(read_serializer.data)
-
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
 def listPlantModuleView(request):
