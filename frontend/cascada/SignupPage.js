@@ -3,17 +3,12 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 export function SignupPage(){
     const navigation = useNavigation();
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
-
-  
-    
-
   let onSubmit = () => {
     const user = {
       email: email,
@@ -46,7 +41,6 @@ export function SignupPage(){
         }
       });
     };
-
     return(
         <ImageBackground source={require('./assets/background.png')} 
             resizeMode='cover'
@@ -58,7 +52,6 @@ export function SignupPage(){
           style={styles.iconImage}
         />
       </View>
-
       <View style = {styles.innnerView}>
         <Text style={{ margin: 12, fontSize: 40, color: '#275161', fontFamily: 'PlayfairDisplay_400Regular', }} > Get Started </Text>
         
@@ -67,13 +60,11 @@ export function SignupPage(){
           onChangeText={ (email) => setEmail(email)}
           placeholder='Email'
         />
-
         <TextInput
           style={styles.TextInput}
           onChangeText={ (username) => setUsername(username)}
           placeholder='Username'
         />
-        
         <TextInput
           style={styles.TextInput}
           secureTextEntry={true}
@@ -81,20 +72,17 @@ export function SignupPage(){
           onChangeText={ (password) => setPassword(password)}
           placeholder='Password'
           />
-
         <TextInput
           style={styles.TextInput}
           secureTextEntry={true}
           onChangeText={ (password2) => setPassword2(password2)}
           placeholder='retype Password'
           />
-
         <TouchableOpacity style={styles.button}>
             <Text style={{fontSize: 24, color: "#D1F892", fontFamily: 'PlayfairDisplay_400Regular',}}
             onPress={onSubmit}
             >Get Started</Text>
         </TouchableOpacity>
-
         <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Login')}>
             <Text style={{fontSize: 18, fontWeight: "700", color: '#275161', fontFamily: 'PlayfairDisplay_400Regular',}}>Already Have An Account</Text>
         </TouchableOpacity>
@@ -103,7 +91,6 @@ export function SignupPage(){
         </ImageBackground>
     );
   }
-
   export const styles = StyleSheet.create({
     iconImage: {
       top: 50,
