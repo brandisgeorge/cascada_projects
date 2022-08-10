@@ -1,8 +1,3 @@
 # cascada_projecs
-...still deciding what all the app will have....
-
-The app has the user register, login, logout page along with a home page, module setup page, and module detail page.
-
-The backend of the app is being created using django and (django rest framework api to connect to the frontend using fetch request).
-
-The frontend of the app is being created using a designed figma wireframe, react native and an expo framework.
+This project is an mobile application that connects to the rainbird watering valve system along with the Moisture senor device created by My team.
+This mobile app allows the user to create an account and log in and create modules to keep track of their plants in the area. they also have the ability to set their desiered high and low moisture percentages and also continuously measure the moisture of their plants. Once the moisture level of the plant drops below the low percentage the app will tell the rainbird to turn on and water the area until it reaches the high percentage then it will turn on and contiue to monitor the plants.
